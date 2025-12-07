@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Maria Eduarda</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&amp;display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body><!-- Audio Control --> <button class="audio-control" id="audioControl">🔊 Música</button> <!-- Page 1 -->
+  <div class="page active" id="page1">
+   <div class="fog"></div>
+   <div class="stars" id="starsContainer"></div>
+   <div class="content-page1">
+    <h1 class="title">Quando ela apareceu…</h1>
+    <div class="typewriter" id="typewriter"></div>
+    <div class="pulse-heart">
+     ❤️
+    </div><button class="nav-button" onclick="goToPage(2)">Continuar</button>
+   </div>
+  </div><!-- Page 2 -->
+  <div class="page" id="page2">
+   <div class="red-glow"></div>
+   <div class="broken-glass"></div>
+   <div class="rose-decoration">
+    🌹
+   </div>
+   <div class="rose-decoration">
+    🌹
+   </div>
+   <div class="rose-decoration">
+    🌹
+   </div>
+   <div class="rose-decoration">
+    🌹
+   </div>
+   <div class="content-page2">
+    <h2 class="impact-title">O Impacto</h2>
+    <p class="intense-text">Eu sempre tentei manter o controle… fingir frieza… esconder a tempestade que carrego no peito. Mas você — só a sua voz — já rachou toda a minha defesa. Depois veio a sua mente… afiada, intensa, deliciosa de explorar. E então o seu corpo… que se tornou o poema que eu quero ler com as mãos.</p>
+    <p class="intense-text">Desde que te conheci, o desejo não entende horários, nem limites. Você irrompe nos meus pensamentos quando quer — e eu deixo. Porque negar você seria negar o ar. Eu não te quero pela metade. Quero o proibido, o certo, o errado… Quero suas curvas e seus abismos, seus pecados e suas redenções. Quero você inteira — alma, pele e caos. Se for para perder o controle… que seja dentro dos seus olhos.</p>
+    <p class="intense-text"><span class="name-highlight" id="nameHighlight">Maria Eduarda</span>… você se tornou o lugar em que o meu peito quer morar.</p><button class="nav-button" onclick="goToPage(3)">Continuar</button>
+   </div>
+  </div><!-- Page 3 -->
+  <div class="page" id="page3">
+   <div class="floating-hearts" id="floatingHeartsContainer"></div>
+   <div class="content-page3">
+    <p class="proposal-text" id="proposalText"><span class="name-highlight" id="proposalName">Maria Eduarda</span>, eu quero você comigo… oficialmente.</p>
+    <p class="ready-text">Você está pronta?</p>
+
+    <div class="buttons-container" id="buttonsContainer">
+
+      <button class="answer-button" id="yesButton" onclick="handleYes()">SIM</button> 
+      <button class="answer-button" id="noButton" onclick="handleNo()">NÃO</button>
+
+    </div>
+
+    <div class="response-info" id="responseInfo"></div>
+    <p class="signature">eu te amo. ✨</p>
+   </div>
+
+  </div>
+
+  <audio id="bgMusic" loop><source src="/audio/Scorpions - Still Loving You (Official Video) (1).mp3" type="audio/mp3">
+  </audio>
+
+  <script src="/js/script.js"></script>
+
+  </body>
+</html>
