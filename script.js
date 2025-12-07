@@ -178,11 +178,9 @@
     // Audio control
     const audioControl = document.getElementById('audioControl');
     const bgMusic = document.getElementById('bgMusic');
-    const volumeSlider = document.getElementById('volumeSlider');
-    const volumeLabel = document.getElementById('volumeLabel');
     let audioPlaying = true;
 
-    // Start music automatically with low volume
+    /// Start music automatically with low volume
     bgMusic.volume = 0.1; // 20% volume
     bgMusic.play().catch(() => {
       // If autoplay is blocked, user will need to click the button
