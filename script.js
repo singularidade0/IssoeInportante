@@ -187,7 +187,7 @@
     bgMusic.play().catch(() => {
       // If autoplay is blocked, user will need to click the button
       audioPlaying = false;
-      audioControl.textContent = '🔇 Música';
+      audioControl.textContent = '🔊 Música';
     });
 
     audioControl.addEventListener('click', () => {
