@@ -118,35 +118,62 @@
     }
 
     // Handle Yes button
-    async function handleYes() {
-      const now = new Date();
-      const dateStr = now.toLocaleDateString('pt-BR');
-      const timeStr = now.toLocaleTimeString('pt-BR');
-      
-      createHeartExplosion(event);
-      
-      const result = await window.dataSdk.create({
+    async function handleYes(event) {
+  const url = currentConfig.discord_link || defaultConfig.discord_link;
+
+  // Abre a aba imediatamente e já coloca um HTML temporário dentro dela
+  let win = window.open("about:blank", "_blank");
+
+  if (!win) {
+    alert("O navegador bloqueou o redirecionamento! Permita pop-ups para continuar.");
+    return;
+  }
+
+  // Coloca uma mensagem temporária na aba aberta
+  win.document.write("<h1 style='font-family: sans-serif;'>Carregando...</h1>");
+
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('pt-BR');
+  const timeStr = now.toLocaleTimeString('pt-BR');
+
+  // Explosão de corações
+  createHeartExplosion(event || { clientX: window.innerWidth/2, clientY: window.innerHeight/2 });
+
+  let result = { isOk: true };
+
+  if (window.dataSdk && window.dataSdk.create) {
+    try {
+      result = await window.dataSdk.create({
         response_date: dateStr,
         response_time: timeStr,
         answer: "SIM"
       });
-      
-      if (result.isOk) {
-        setTimeout(() => {
-          const responseInfo = document.getElementById('responseInfo');
-          responseInfo.innerHTML = `
-            <p>Ela disse SIM! 💕</p>
-            <p>Data: ${dateStr} às ${timeStr}</p>
-            <p style="margin-top: 15px;">Redirecionando para o Discord...</p>
-          `;
-          responseInfo.classList.add('show');
-          
-          setTimeout(() => {
-            window.open(currentConfig.discord_link, '_blank', 'noopener,noreferrer');
-          }, 2000);
-        }, 1000);
-      }
+    } catch (e) {
+      console.warn("Erro no dataSdk.create (ignorado):", e);
     }
+  }
+
+  // Atualiza mensagem enquanto animações acontecem
+  const responseInfo = document.getElementById('responseInfo');
+  responseInfo.innerHTML = `
+    <p>Ela disse SIM! 💕</p>
+    <p>Data: ${dateStr} às ${timeStr}</p>
+    <p style="margin-top: 15px;">Redirecionando para o Discord...</p>
+  `;
+  responseInfo.classList.add('show');
+
+  // Espera animação e então redireciona a aba já aberta
+  setTimeout(() => {
+    try {
+      win.location.href = url;
+    } catch (e) {
+      console.warn("Redirecionamento via win.location falhou, abrindo diretamente.", e);
+      window.open(url, "_blank");
+    }
+  }, 1200);
+}
+
+
 
     // Heart explosion effect
     function createHeartExplosion(event) {
@@ -348,3 +375,11 @@ function enableMusicAutoplay() {
 enableMusicAutoplay();
 
 (function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9aa2a97d535a8aef',t:'MTc2NTA5NjIzNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();
+
+// Garante que o clique entregue o event corretamente e evita depender do onclick inline
+const yesBtn = document.getElementById('yesButton');
+if (yesBtn) {
+  // Remove onclick inline se quiser evitar duplicação:
+  // yesBtn.removeAttribute('onclick');
+  yesBtn.addEventListener('click', handleYes);
+}
